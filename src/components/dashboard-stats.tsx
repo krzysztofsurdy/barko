@@ -1,16 +1,18 @@
+import { type ReactNode } from "react";
+import { ProcessIcon, TeamsIcon, TasksIcon, SkillsIcon } from "./icons";
+
 interface StatCardProps {
   label: string;
   value: number | string;
-  icon: string;
-  color?: string;
+  icon: ReactNode;
 }
 
-function StatCard({ label, value, icon, color = "text-sidebar-active" }: StatCardProps) {
+function StatCard({ label, value, icon }: StatCardProps) {
   return (
     <div className="rounded-lg border border-card-border bg-card-bg p-4">
       <div className="flex items-center justify-between mb-2">
         <span className="text-foreground/50 text-sm">{label}</span>
-        <span className={`text-lg ${color}`}>{icon}</span>
+        {icon}
       </div>
       <div className="text-2xl font-bold">{value}</div>
     </div>
@@ -35,26 +37,22 @@ export function DashboardStats({
       <StatCard
         label="Active Processes"
         value={processCount}
-        icon="⚙"
-        color="text-status-active"
+        icon={<ProcessIcon size={20} className="text-status-active" />}
       />
       <StatCard
         label="Teams"
         value={teamCount}
-        icon="⊞"
-        color="text-sidebar-active"
+        icon={<TeamsIcon size={20} className="text-sidebar-active" />}
       />
       <StatCard
         label="Tasks In Progress"
         value={activeTaskCount}
-        icon="☐"
-        color="text-status-working"
+        icon={<TasksIcon size={20} className="text-status-working" />}
       />
       <StatCard
         label="Installed Skills"
         value={skillCount}
-        icon="⚡"
-        color="text-purple-500"
+        icon={<SkillsIcon size={20} className="text-purple-500" />}
       />
     </div>
   );

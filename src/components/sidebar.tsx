@@ -2,16 +2,29 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import {
+  DashboardIcon,
+  ProcessIcon,
+  TeamsIcon,
+  TasksIcon,
+  SkillsIcon,
+  ConfigIcon,
+  LogsIcon,
+  HistoryIcon,
+} from "./icons";
+import { type ComponentType, type SVGProps } from "react";
 
-const navItems = [
-  { href: "/", label: "Dashboard", icon: "◉" },
-  { href: "/processes", label: "Processes", icon: "⚙" },
-  { href: "/teams", label: "Teams", icon: "⊞" },
-  { href: "/tasks", label: "Tasks", icon: "☐" },
-  { href: "/skills", label: "Skills", icon: "⚡" },
-  { href: "/config", label: "Config", icon: "⊡" },
-  { href: "/logs", label: "Logs", icon: "▤" },
-  { href: "/history", label: "History", icon: "↻" },
+type IconComponent = ComponentType<SVGProps<SVGSVGElement> & { size?: number }>;
+
+const navItems: { href: string; label: string; Icon: IconComponent }[] = [
+  { href: "/", label: "Dashboard", Icon: DashboardIcon },
+  { href: "/processes", label: "Processes", Icon: ProcessIcon },
+  { href: "/teams", label: "Teams", Icon: TeamsIcon },
+  { href: "/tasks", label: "Tasks", Icon: TasksIcon },
+  { href: "/skills", label: "Skills", Icon: SkillsIcon },
+  { href: "/config", label: "Config", Icon: ConfigIcon },
+  { href: "/logs", label: "Logs", Icon: LogsIcon },
+  { href: "/history", label: "History", Icon: HistoryIcon },
 ];
 
 export function Sidebar() {
@@ -23,7 +36,7 @@ export function Sidebar() {
         <h1 className="text-lg font-bold tracking-tight">
           AI Agent Monitor
         </h1>
-        <p className="text-xs text-white/40 mt-0.5">Claude Code Monitor</p>
+        <p className="text-xs text-white/40 mt-0.5">Local Activity Dashboard</p>
       </div>
       <nav className="flex-1 py-3">
         {navItems.map((item) => {
@@ -40,7 +53,7 @@ export function Sidebar() {
                   : "text-white/60 hover:text-white hover:bg-white/5"
               }`}
             >
-              <span className="text-base w-5 text-center">{item.icon}</span>
+              <item.Icon size={18} className="shrink-0" />
               {item.label}
             </Link>
           );
