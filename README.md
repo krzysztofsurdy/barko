@@ -85,6 +85,26 @@ npm run build
 npm start
 ```
 
+### Docker
+
+```bash
+docker compose up --build
+```
+
+Or pull from Docker Hub:
+
+```bash
+docker run -d \
+  --name barko \
+  --pid=host \
+  -p 3000:3000 \
+  -v ~/.claude:/home/nextjs/.claude:ro \
+  --restart unless-stopped \
+  ydrus/barko:latest
+```
+
+The `--pid=host` flag lets Barko see host processes. The volume mount is read-only.
+
 ## Project Structure
 
 ```
