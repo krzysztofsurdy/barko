@@ -52,6 +52,8 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 - `--pid=host` lets Barko see host processes for the Processes page
 - The volume mount is read-only -- Barko never writes to `~/.claude/`
 
+**Note:** On macOS, Docker runs inside a Linux VM so `--pid=host` only exposes the VM's processes, not the macOS host's. The Processes page will be empty. All other features (teams, tasks, conversations, skills, agents, config, logs, history) work normally. On Linux, process monitoring works as expected.
+
 ## License
 
 [MIT](LICENSE)
