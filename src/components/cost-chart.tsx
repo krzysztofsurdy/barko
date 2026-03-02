@@ -60,8 +60,8 @@ export function CostChart({ data }: CostChartProps) {
             type="monotone"
             dataKey="inputCost"
             stackId="1"
-            stroke="#3b82f6"
-            fill="#3b82f6"
+            stroke="var(--accent-teal)"
+            fill="var(--accent-teal)"
             fillOpacity={0.3}
             name="inputCost"
           />
@@ -69,8 +69,8 @@ export function CostChart({ data }: CostChartProps) {
             type="monotone"
             dataKey="outputCost"
             stackId="1"
-            stroke="#a855f7"
-            fill="#a855f7"
+            stroke="var(--accent-purple)"
+            fill="var(--accent-purple)"
             fillOpacity={0.3}
             name="outputCost"
           />

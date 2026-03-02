@@ -172,7 +172,7 @@ export default function ConversationsPage() {
 
       {favoriteSessions.length > 0 && (
         <div>
-          <h2 className="text-sm font-medium text-yellow-400/70 mb-2 flex items-center gap-2">
+          <h2 className="text-sm font-medium text-accent-orange/70 mb-2 flex items-center gap-2">
             Bookmarked
           </h2>
           <SessionTable rows={favoriteSessions} />

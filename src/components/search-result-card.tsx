@@ -36,7 +36,7 @@ function highlightMatch(text: string, query: string) {
     <>
       {parts.map((p, i) =>
         p.highlight ? (
-          <mark key={i} className="bg-yellow-400/30 text-foreground rounded px-0.5">
+          <mark key={i} className="bg-accent-yellow/30 text-foreground rounded px-0.5">
             {p.text}
           </mark>
         ) : (

@@ -86,7 +86,7 @@ export default function DashboardPage() {
               .map((task) => (
                 <div
                   key={`${task.teamName}-${task.id}`}
-                  className="rounded-lg border border-card-border bg-card-bg p-3 flex items-center justify-between"
+                  className="rounded-lg border border-card-border border-l-4 !border-l-accent-orange bg-card-bg p-3 flex items-center justify-between"
                 >
                   <div>
                     <span className="text-sm font-medium">{task.subject}</span>

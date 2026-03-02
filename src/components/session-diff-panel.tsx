@@ -27,10 +27,10 @@ export function SessionDiffPanel({ changes }: SessionDiffPanelProps) {
         <span className="text-xs text-foreground/40">
           {changes.length} file{changes.length !== 1 ? "s" : ""}
           {created > 0 && (
-            <span className="ml-1 text-green-400">+{created}</span>
+            <span className="ml-1 text-accent-green">+{created}</span>
           )}
           {modified > 0 && (
-            <span className="ml-1 text-yellow-400">~{modified}</span>
+            <span className="ml-1 text-accent-orange">~{modified}</span>
           )}
         </span>
         <svg
@@ -55,8 +55,8 @@ export function SessionDiffPanel({ changes }: SessionDiffPanelProps) {
               <span
                 className={`px-1.5 py-0.5 rounded text-[10px] font-sans font-medium ${
                   change.operation === "created"
-                    ? "bg-green-500/15 text-green-400"
-                    : "bg-yellow-500/15 text-yellow-400"
+                    ? "bg-accent-green/15 text-accent-green"
+                    : "bg-accent-orange/15 text-accent-orange"
                 }`}
               >
                 {change.operation === "created" ? "new" : "mod"}

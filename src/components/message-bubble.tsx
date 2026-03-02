@@ -57,10 +57,10 @@ function ThinkingBlock({ block }: { block: AIMessageContent }) {
   const text = block.thinking || block.text || "";
 
   return (
-    <div className="rounded border border-yellow-500/20 bg-yellow-500/5 my-2">
+    <div className="rounded border border-accent-yellow/20 bg-accent-yellow/5 my-2">
       <button
         onClick={() => setExpanded(!expanded)}
-        className="w-full text-left px-3 py-2 text-xs flex items-center gap-2 hover:bg-yellow-500/10 transition-colors"
+        className="w-full text-left px-3 py-2 text-xs flex items-center gap-2 hover:bg-accent-yellow/10 transition-colors"
       >
         <svg
           width={12}
@@ -73,11 +73,11 @@ function ThinkingBlock({ block }: { block: AIMessageContent }) {
         >
           <polyline points="9 18 15 12 9 6" />
         </svg>
-        <span className="font-medium text-yellow-400/80">Thinking</span>
+        <span className="font-medium text-accent-yellow/80">Thinking</span>
         <span className="text-foreground/30">{text.length} chars</span>
       </button>
       {expanded && (
-        <div className="px-3 pb-2 border-t border-yellow-500/20">
+        <div className="px-3 pb-2 border-t border-accent-yellow/20">
           <pre className="text-xs font-mono text-foreground/50 overflow-x-auto whitespace-pre-wrap mt-2 max-h-80 overflow-y-auto">
             {text}
           </pre>

@@ -19,7 +19,7 @@ export function LogViewer({ content, autoScroll = true }: LogViewerProps) {
   return (
     <pre
       ref={ref}
-      className="text-xs font-mono bg-sidebar-bg text-green-400 rounded-md p-4 overflow-auto max-h-[600px] whitespace-pre-wrap"
+      className="text-xs font-mono bg-sidebar-bg text-accent-green rounded-md p-4 overflow-auto max-h-[600px] whitespace-pre-wrap"
     >
       {content || "No log content"}
     </pre>

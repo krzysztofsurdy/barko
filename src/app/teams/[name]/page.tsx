@@ -46,12 +46,12 @@ export default function TeamDetailPage() {
   const completedTasks = tasks.filter((t) => t.status === "completed");
 
   const colorMap: Record<string, string> = {
-    blue: "bg-blue-500",
-    red: "bg-red-500",
-    green: "bg-green-500",
-    yellow: "bg-yellow-500",
-    purple: "bg-purple-500",
-    orange: "bg-orange-500",
+    blue: "bg-accent-teal",
+    red: "bg-accent-pink",
+    green: "bg-accent-green",
+    yellow: "bg-accent-yellow",
+    purple: "bg-accent-purple",
+    orange: "bg-accent-orange",
   };
 
   return (
@@ -179,7 +179,7 @@ function TaskCard({ task }: { task: AITask }) {
         </div>
       )}
       {task.blockedBy.length > 0 && (
-        <div className="text-xs text-red-400 mt-1">
+        <div className="text-xs text-accent-pink mt-1">
           Blocked by: {task.blockedBy.join(", ")}
         </div>
       )}

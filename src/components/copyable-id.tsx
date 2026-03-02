@@ -49,7 +49,7 @@ export function CopyableId({
           strokeWidth={2}
           strokeLinecap="round"
           strokeLinejoin="round"
-          className="text-green-400 shrink-0"
+          className="text-accent-green shrink-0"
         >
           <polyline points="20 6 9 17 4 12" />
         </svg>

@@ -15,14 +15,14 @@ interface TeamCardProps {
 }
 
 const colorMap: Record<string, string> = {
-  blue: "bg-blue-500",
-  red: "bg-red-500",
-  green: "bg-green-500",
-  yellow: "bg-yellow-500",
-  purple: "bg-purple-500",
-  orange: "bg-orange-500",
-  pink: "bg-pink-500",
-  cyan: "bg-cyan-500",
+  blue: "bg-accent-teal",
+  red: "bg-accent-pink",
+  green: "bg-accent-green",
+  yellow: "bg-accent-yellow",
+  purple: "bg-accent-purple",
+  orange: "bg-accent-orange",
+  pink: "bg-accent-pink",
+  cyan: "bg-accent-teal",
 };
 
 function MemberAvatar({ name, color }: { name: string; color?: string }) {

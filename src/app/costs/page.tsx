@@ -92,8 +92,8 @@ export default function CostsPage() {
           <div className="rounded-lg border border-card-border bg-card-bg p-4">
             <h2 className="text-sm font-medium text-foreground/50 mb-4">
               Daily Cost
-              <span className="ml-2 inline-block w-3 h-2 rounded bg-blue-500/50" /> Input
-              <span className="ml-2 inline-block w-3 h-2 rounded bg-purple-500/50" /> Output
+              <span className="ml-2 inline-block w-3 h-2 rounded bg-accent-teal/50" /> Input
+              <span className="ml-2 inline-block w-3 h-2 rounded bg-accent-purple/50" /> Output
             </h2>
             <CostChart data={summary.dailyCosts} />
           </div>

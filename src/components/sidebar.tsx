@@ -25,21 +25,21 @@ import { type ComponentType, type SVGProps } from "react";
 
 type IconComponent = ComponentType<SVGProps<SVGSVGElement> & { size?: number }>;
 
-const navItems: { href: string; label: string; Icon: IconComponent }[] = [
-  { href: "/", label: "Dashboard", Icon: DashboardIcon },
-  { href: "/live", label: "Live", Icon: LiveIcon },
-  { href: "/processes", label: "Processes", Icon: ProcessIcon },
-  { href: "/teams", label: "Teams", Icon: TeamsIcon },
-  { href: "/conversations", label: "Conversations", Icon: ConversationIcon },
-  { href: "/tasks", label: "Tasks", Icon: TasksIcon },
-  { href: "/skills", label: "Skills", Icon: SkillsIcon },
-  { href: "/agents", label: "Agents", Icon: AgentsIcon },
-  { href: "/search", label: "Search", Icon: SearchIcon },
-  { href: "/costs", label: "Costs", Icon: CostIcon },
-  { href: "/timeline", label: "Timeline", Icon: TimelineIcon },
-  { href: "/config", label: "Config", Icon: ConfigIcon },
-  { href: "/logs", label: "Logs", Icon: LogsIcon },
-  { href: "/history", label: "History", Icon: HistoryIcon },
+const navItems: { href: string; label: string; Icon: IconComponent; activeColor: string }[] = [
+  { href: "/", label: "Dashboard", Icon: DashboardIcon, activeColor: "text-accent-teal" },
+  { href: "/live", label: "Live", Icon: LiveIcon, activeColor: "text-accent-green" },
+  { href: "/processes", label: "Processes", Icon: ProcessIcon, activeColor: "text-accent-green" },
+  { href: "/teams", label: "Teams", Icon: TeamsIcon, activeColor: "text-accent-teal" },
+  { href: "/conversations", label: "Conversations", Icon: ConversationIcon, activeColor: "text-accent-purple" },
+  { href: "/tasks", label: "Tasks", Icon: TasksIcon, activeColor: "text-accent-orange" },
+  { href: "/skills", label: "Skills", Icon: SkillsIcon, activeColor: "text-accent-purple" },
+  { href: "/agents", label: "Agents", Icon: AgentsIcon, activeColor: "text-accent-teal" },
+  { href: "/search", label: "Search", Icon: SearchIcon, activeColor: "text-accent-yellow" },
+  { href: "/costs", label: "Costs", Icon: CostIcon, activeColor: "text-accent-orange" },
+  { href: "/timeline", label: "Timeline", Icon: TimelineIcon, activeColor: "text-accent-pink" },
+  { href: "/config", label: "Config", Icon: ConfigIcon, activeColor: "text-accent-teal" },
+  { href: "/logs", label: "Logs", Icon: LogsIcon, activeColor: "text-accent-green" },
+  { href: "/history", label: "History", Icon: HistoryIcon, activeColor: "text-accent-purple" },
 ];
 
 export function Sidebar() {
@@ -62,9 +62,10 @@ export function Sidebar() {
               href={item.href}
               className={`flex items-center gap-3 px-5 py-2.5 text-sm transition-colors ${
                 isActive
-                  ? "bg-sidebar-active/15 text-sidebar-active border-r-2 border-sidebar-active"
+                  ? `bg-sidebar-hover/50 ${item.activeColor} border-r-2`
                   : "text-sidebar-muted hover:text-sidebar-text hover:bg-sidebar-hover"
               }`}
+              style={isActive ? { borderColor: "currentColor" } : undefined}
             >
               <item.Icon size={18} className="shrink-0" />
               {item.label}
@@ -73,7 +74,7 @@ export function Sidebar() {
         })}
       </nav>
       <div className="px-5 py-4 border-t border-sidebar-border flex items-center justify-between">
-        <span className="text-xs text-sidebar-muted">v0.2.1</span>
+        <span className="text-xs text-sidebar-muted">v0.3.0</span>
         <div className="flex items-center gap-1">
           <NotificationToggle enabled={enabled} onToggle={toggle} />
           <ThemeToggle />

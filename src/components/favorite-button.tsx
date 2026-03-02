@@ -16,7 +16,7 @@ export function FavoriteButton({ active, onClick }: FavoriteButtonProps) {
         onClick();
       }}
       className={`transition-all duration-150 hover:scale-110 active:scale-95 ${
-        active ? "text-yellow-400" : "text-foreground/20 hover:text-foreground/40"
+        active ? "text-accent-orange" : "text-foreground/20 hover:text-foreground/40"
       }`}
       title={active ? "Remove bookmark" : "Add bookmark"}
     >

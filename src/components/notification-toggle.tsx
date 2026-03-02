@@ -14,7 +14,7 @@ export function NotificationToggle({ enabled, onToggle }: NotificationToggleProp
       title={enabled ? "Notifications on" : "Notifications off"}
       className={`p-1.5 rounded-md transition-colors ${
         enabled
-          ? "text-yellow-400 hover:bg-sidebar-hover"
+          ? "text-accent-orange hover:bg-sidebar-hover"
           : "text-sidebar-muted hover:text-sidebar-text hover:bg-sidebar-hover"
       }`}
     >

@@ -38,7 +38,7 @@ export function MCPServerCard({
           </svg>
           <h3 className="font-semibold text-sm">{name}</h3>
         </div>
-        <span className="text-[10px] px-1.5 py-0.5 rounded bg-green-500/10 text-green-400">
+        <span className="text-[10px] px-1.5 py-0.5 rounded bg-accent-green/10 text-accent-green">
           MCP
         </span>
       </div>

@@ -109,7 +109,7 @@ export default function LivePage() {
           onClick={() => setPaused(!paused)}
           className={`px-3 py-1.5 text-xs rounded-md border transition-colors ${
             paused
-              ? "border-green-500/30 text-green-400 hover:bg-green-500/10"
+              ? "border-accent-green/30 text-accent-green hover:bg-accent-green/10"
               : "border-card-border text-foreground/50 hover:bg-card-bg"
           }`}
         >

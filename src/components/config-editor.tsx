@@ -75,7 +75,7 @@ export function ConfigEditor({
       />
 
       {error && (
-        <div className="mt-2 text-xs text-red-400">{error}</div>
+        <div className="mt-2 text-xs text-accent-pink">{error}</div>
       )}
 
       {confirmOpen && (

@@ -3,13 +3,13 @@
 import type { TeamTimeline } from "@/lib/timeline-builder";
 
 const colorMap: Record<string, string> = {
-  blue: "bg-blue-500",
-  red: "bg-red-500",
-  green: "bg-green-500",
-  yellow: "bg-yellow-500",
-  purple: "bg-purple-500",
-  orange: "bg-orange-500",
-  slate: "bg-slate-500",
+  blue: "bg-accent-teal",
+  red: "bg-accent-pink",
+  green: "bg-accent-green",
+  yellow: "bg-accent-yellow",
+  purple: "bg-accent-purple",
+  orange: "bg-accent-orange",
+  slate: "bg-foreground/30",
 };
 
 const statusColorMap: Record<string, string> = {
