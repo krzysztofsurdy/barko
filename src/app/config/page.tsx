@@ -2,7 +2,9 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { ConfigViewer } from "@/components/config-viewer";
+import { ConfigEditor } from "@/components/config-editor";
 import { MCPServerCard } from "@/components/mcp-server-card";
+import { EditIcon } from "@/components/icons";
 import { useSSE } from "@/lib/use-sse";
 import type { AIConfig, AIMCPServer } from "@/lib/types";
 
@@ -13,6 +15,7 @@ export default function ConfigPage() {
   const [mcpServers, setMcpServers] = useState<AIMCPServer[]>([]);
   const [activeProvider, setActiveProvider] = useState<string>("claude");
   const [activeTab, setActiveTab] = useState<Tab>("config");
+  const [editing, setEditing] = useState<string | null>(null);
 
   const fetchConfig = useCallback(async () => {
     const res = await fetch("/api/config");
@@ -49,7 +52,6 @@ export default function ConfigPage() {
         </p>
       </div>
 
-      {/* Provider selector */}
       {providers.length > 0 && (
         <div className="flex items-center gap-4">
           <span className="text-sm text-foreground/40">Provider:</span>
@@ -79,7 +81,6 @@ export default function ConfigPage() {
         </div>
       )}
 
-      {/* Tab selector */}
       <div className="flex gap-2 border-b border-card-border pb-0">
         {(["config", "mcp"] as const).map((tab) => (
           <button
@@ -96,40 +97,85 @@ export default function ConfigPage() {
         ))}
       </div>
 
-      {/* Config tab */}
       {activeTab === "config" && currentConfig && (
         <div className="space-y-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            <ConfigViewer
-              title={
-                activeProvider === "claude"
-                  ? "Global Rules (CLAUDE.md)"
-                  : "Global Rules"
-              }
-              content={currentConfig.globalRules}
-              language="markdown"
+          {editing === "globalClaudeMd" ? (
+            <ConfigEditor
+              file="globalClaudeMd"
+              initialContent={currentConfig.globalRules || ""}
+              onSaved={() => {
+                setEditing(null);
+                fetchConfig();
+              }}
+              onCancel={() => setEditing(null)}
             />
-            <div className="space-y-4">
-              <ConfigViewer
-                title="settings.json"
-                content={
-                  currentConfig.settings
-                    ? JSON.stringify(currentConfig.settings, null, 2)
-                    : null
-                }
-                language="json"
-              />
-              <ConfigViewer
-                title="settings.local.json"
-                content={
-                  currentConfig.settingsLocal
-                    ? JSON.stringify(currentConfig.settingsLocal, null, 2)
-                    : null
-                }
-                language="json"
-              />
+          ) : editing === "settings" ? (
+            <ConfigEditor
+              file="settings"
+              initialContent={
+                currentConfig.settings
+                  ? JSON.stringify(currentConfig.settings, null, 2)
+                  : "{}"
+              }
+              onSaved={() => {
+                setEditing(null);
+                fetchConfig();
+              }}
+              onCancel={() => setEditing(null)}
+            />
+          ) : (
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+              <div className="relative">
+                <ConfigViewer
+                  title={
+                    activeProvider === "claude"
+                      ? "Global Rules (CLAUDE.md)"
+                      : "Global Rules"
+                  }
+                  content={currentConfig.globalRules}
+                  language="markdown"
+                />
+                <button
+                  onClick={() => setEditing("globalClaudeMd")}
+                  className="absolute top-4 right-4 flex items-center gap-1 px-2 py-1 text-xs rounded border border-card-border text-foreground/40 hover:text-foreground/70 hover:bg-background transition-colors"
+                >
+                  <EditIcon size={12} />
+                  Edit
+                </button>
+              </div>
+              <div className="space-y-4">
+                <div className="relative">
+                  <ConfigViewer
+                    title="settings.json"
+                    content={
+                      currentConfig.settings
+                        ? JSON.stringify(currentConfig.settings, null, 2)
+                        : null
+                    }
+                    language="json"
+                  />
+                  {currentConfig.settings && (
+                    <button
+                      onClick={() => setEditing("settings")}
+                      className="absolute top-4 right-4 flex items-center gap-1 px-2 py-1 text-xs rounded border border-card-border text-foreground/40 hover:text-foreground/70 hover:bg-background transition-colors"
+                    >
+                      <EditIcon size={12} />
+                      Edit
+                    </button>
+                  )}
+                </div>
+                <ConfigViewer
+                  title="settings.local.json"
+                  content={
+                    currentConfig.settingsLocal
+                      ? JSON.stringify(currentConfig.settingsLocal, null, 2)
+                      : null
+                  }
+                  language="json"
+                />
+              </div>
             </div>
-          </div>
+          )}
         </div>
       )}
 
@@ -139,7 +185,6 @@ export default function ConfigPage() {
         </div>
       )}
 
-      {/* MCP tab */}
       {activeTab === "mcp" && (
         <div>
           {mcpServers.length === 0 ? (
