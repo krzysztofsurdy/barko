@@ -2,7 +2,7 @@ services:
   monitor:
     build: .
     ports:
-      - "3000:3000"
+      - "3111:3111"
     pid: host
     volumes:
       - ~/.claude:/home/nextjs/.claude:ro
