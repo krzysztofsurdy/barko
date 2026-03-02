@@ -4,9 +4,12 @@
 [data-theme="light"] {
   --background: #f8fafc;
   --foreground: #0f172a;
-  --sidebar-bg: #0f172a;
-  --sidebar-text: #e2e8f0;
-  --sidebar-active: #3b82f6;
+  --sidebar-bg: #f1f5f9;
+  --sidebar-text: #1e293b;
+  --sidebar-active: #2563eb;
+  --sidebar-border: #e2e8f0;
+  --sidebar-hover: #e2e8f0;
+  --sidebar-muted: #475569;
   --card-bg: #ffffff;
   --card-border: #e2e8f0;
   --status-active: #22c55e;
@@ -22,6 +25,9 @@
   --sidebar-bg: #0f172a;
   --sidebar-text: #e2e8f0;
   --sidebar-active: #3b82f6;
+  --sidebar-border: #1e293b;
+  --sidebar-hover: #1e293b;
+  --sidebar-muted: #94a3b8;
   --card-bg: #1e293b;
   --card-border: #334155;
   --status-active: #22c55e;
@@ -38,6 +44,9 @@
     --sidebar-bg: #0f172a;
     --sidebar-text: #e2e8f0;
     --sidebar-active: #3b82f6;
+    --sidebar-border: #1e293b;
+    --sidebar-hover: #1e293b;
+    --sidebar-muted: #94a3b8;
     --card-bg: #1e293b;
     --card-border: #334155;
     --status-active: #22c55e;
@@ -54,6 +63,9 @@
   --color-sidebar-bg: var(--sidebar-bg);
   --color-sidebar-text: var(--sidebar-text);
   --color-sidebar-active: var(--sidebar-active);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-hover: var(--sidebar-hover);
+  --color-sidebar-muted: var(--sidebar-muted);
   --color-card-bg: var(--card-bg);
   --color-card-border: var(--card-border);
   --color-status-active: var(--status-active);

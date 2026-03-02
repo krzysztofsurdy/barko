@@ -47,8 +47,8 @@ export function Sidebar() {
   const { enabled, toggle } = useNotifications();
 
   return (
-    <aside className="fixed left-0 top-0 h-screen w-56 bg-sidebar-bg text-sidebar-text flex flex-col z-10">
-      <div className="px-5 py-5 border-b border-white/10 flex justify-center">
+    <aside className="fixed left-0 top-0 h-screen w-56 bg-sidebar-bg text-sidebar-text border-r border-sidebar-border flex flex-col z-10">
+      <div className="px-5 py-5 border-b border-sidebar-border flex justify-center">
         <img src="/logo.png" alt="Barko" height={144} className="h-36 w-auto" />
       </div>
       <nav className="flex-1 py-3 overflow-y-auto">
@@ -62,8 +62,8 @@ export function Sidebar() {
               href={item.href}
               className={`flex items-center gap-3 px-5 py-2.5 text-sm transition-colors ${
                 isActive
-                  ? "bg-sidebar-active/20 text-white border-r-2 border-sidebar-active"
-                  : "text-white/60 hover:text-white hover:bg-white/5"
+                  ? "bg-sidebar-active/15 text-sidebar-active border-r-2 border-sidebar-active"
+                  : "text-sidebar-muted hover:text-sidebar-text hover:bg-sidebar-hover"
               }`}
             >
               <item.Icon size={18} className="shrink-0" />
@@ -72,8 +72,8 @@ export function Sidebar() {
           );
         })}
       </nav>
-      <div className="px-5 py-4 border-t border-white/10 flex items-center justify-between">
-        <span className="text-xs text-white/30">v0.2.0</span>
+      <div className="px-5 py-4 border-t border-sidebar-border flex items-center justify-between">
+        <span className="text-xs text-sidebar-muted">v0.2.1</span>
         <div className="flex items-center gap-1">
           <NotificationToggle enabled={enabled} onToggle={toggle} />
           <ThemeToggle />
