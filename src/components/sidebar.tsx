@@ -14,6 +14,7 @@ import {
   LogsIcon,
   HistoryIcon,
   SearchIcon,
+  CostIcon,
 } from "./icons";
 import { ThemeToggle } from "./theme-toggle";
 import { type ComponentType, type SVGProps } from "react";
@@ -29,6 +30,7 @@ const navItems: { href: string; label: string; Icon: IconComponent }[] = [
   { href: "/skills", label: "Skills", Icon: SkillsIcon },
   { href: "/agents", label: "Agents", Icon: AgentsIcon },
   { href: "/search", label: "Search", Icon: SearchIcon },
+  { href: "/costs", label: "Costs", Icon: CostIcon },
   { href: "/config", label: "Config", Icon: ConfigIcon },
   { href: "/logs", label: "Logs", Icon: LogsIcon },
   { href: "/history", label: "History", Icon: HistoryIcon },
