@@ -16,6 +16,7 @@ import {
   SearchIcon,
   CostIcon,
   TimelineIcon,
+  LiveIcon,
 } from "./icons";
 import { ThemeToggle } from "./theme-toggle";
 import { type ComponentType, type SVGProps } from "react";
@@ -24,6 +25,7 @@ type IconComponent = ComponentType<SVGProps<SVGSVGElement> & { size?: number }>;
 
 const navItems: { href: string; label: string; Icon: IconComponent }[] = [
   { href: "/", label: "Dashboard", Icon: DashboardIcon },
+  { href: "/live", label: "Live", Icon: LiveIcon },
   { href: "/processes", label: "Processes", Icon: ProcessIcon },
   { href: "/teams", label: "Teams", Icon: TeamsIcon },
   { href: "/conversations", label: "Conversations", Icon: ConversationIcon },
