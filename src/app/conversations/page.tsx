@@ -3,6 +3,8 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
 import Link from "next/link";
 import { CopyableId } from "@/components/copyable-id";
+import { FavoriteButton } from "@/components/favorite-button";
+import { useFavorites } from "@/lib/use-favorites";
 import type { AIConversationSession } from "@/lib/types";
 
 function formatTokens(n: number): string {
@@ -14,6 +16,7 @@ function formatTokens(n: number): string {
 export default function ConversationsPage() {
   const [sessions, setSessions] = useState<AIConversationSession[]>([]);
   const [search, setSearch] = useState("");
+  const { toggle, isFavorite, favorites } = useFavorites();
 
   const fetchSessions = useCallback(async () => {
     const res = await fetch("/api/conversations");
@@ -32,7 +35,11 @@ export default function ConversationsPage() {
       )
     : sessions;
 
-  // Group by project
+  const favoriteSessions = useMemo(
+    () => filtered.filter((s) => isFavorite(s.sessionId)),
+    [filtered, isFavorite, favorites]
+  );
+
   const grouped = useMemo(() => {
     const map = new Map<string, AIConversationSession[]>();
     for (const session of filtered) {
@@ -46,6 +53,82 @@ export default function ConversationsPage() {
       return bLatest.localeCompare(aLatest);
     });
   }, [filtered]);
+
+  function SessionTable({ rows }: { rows: AIConversationSession[] }) {
+    return (
+      <div className="rounded-lg border border-card-border bg-card-bg overflow-hidden">
+        <table className="w-full">
+          <thead>
+            <tr className="border-b border-card-border text-left text-xs text-foreground/40">
+              <th className="py-2 px-3 w-8"></th>
+              <th className="py-2 px-3">Session</th>
+              <th className="py-2 px-3">Messages</th>
+              <th className="py-2 px-3">Tokens</th>
+              <th className="py-2 px-3">Started</th>
+              <th className="py-2 px-3">Duration</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((session) => {
+              const duration =
+                session.startTime && session.endTime
+                  ? Math.round(
+                      (new Date(session.endTime).getTime() -
+                        new Date(session.startTime).getTime()) /
+                        60000
+                    )
+                  : null;
+
+              return (
+                <tr
+                  key={session.sessionId}
+                  className="border-b border-card-border hover:bg-card-bg/50 transition-colors"
+                >
+                  <td className="py-2.5 px-3">
+                    <FavoriteButton
+                      active={isFavorite(session.sessionId)}
+                      onClick={() => toggle(session.sessionId)}
+                    />
+                  </td>
+                  <td className="py-2.5 px-3">
+                    <div className="flex items-center gap-2">
+                      <Link
+                        href={`/conversations/${session.sessionId}?project=${encodeURIComponent(session.project)}`}
+                        className="text-xs font-mono hover:text-sidebar-active transition-colors"
+                      >
+                        {session.sessionId.slice(0, 12)}...
+                      </Link>
+                      <CopyableId
+                        value={session.sessionId}
+                        truncate={0}
+                        className="text-foreground/30"
+                      />
+                    </div>
+                  </td>
+                  <td className="py-2.5 px-3 text-sm">
+                    {session.messageCount}
+                  </td>
+                  <td className="py-2.5 px-3 text-xs font-mono text-foreground/50">
+                    {formatTokens(
+                      session.totalInputTokens + session.totalOutputTokens
+                    )}
+                  </td>
+                  <td className="py-2.5 px-3 text-xs text-foreground/50">
+                    {session.startTime
+                      ? new Date(session.startTime).toLocaleString()
+                      : "-"}
+                  </td>
+                  <td className="py-2.5 px-3 text-xs text-foreground/50">
+                    {duration !== null ? `${duration}m` : "-"}
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6">
@@ -64,6 +147,15 @@ export default function ConversationsPage() {
         className="w-full max-w-md px-3 py-2 text-sm rounded-lg border border-card-border bg-card-bg focus:outline-none focus:border-sidebar-active"
       />
 
+      {favoriteSessions.length > 0 && (
+        <div>
+          <h2 className="text-sm font-medium text-yellow-400/70 mb-2 flex items-center gap-2">
+            Bookmarked
+          </h2>
+          <SessionTable rows={favoriteSessions} />
+        </div>
+      )}
+
       {grouped.length === 0 ? (
         <div className="text-center py-16 text-foreground/40">
           <p>No conversations found</p>
@@ -75,71 +167,7 @@ export default function ConversationsPage() {
               <h2 className="text-sm font-medium text-foreground/50 mb-2 font-mono truncate">
                 {projectPath}
               </h2>
-              <div className="rounded-lg border border-card-border bg-card-bg overflow-hidden">
-                <table className="w-full">
-                  <thead>
-                    <tr className="border-b border-card-border text-left text-xs text-foreground/40">
-                      <th className="py-2 px-3">Session</th>
-                      <th className="py-2 px-3">Messages</th>
-                      <th className="py-2 px-3">Tokens</th>
-                      <th className="py-2 px-3">Started</th>
-                      <th className="py-2 px-3">Duration</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {projectSessions.map((session) => {
-                      const duration =
-                        session.startTime && session.endTime
-                          ? Math.round(
-                              (new Date(session.endTime).getTime() -
-                                new Date(session.startTime).getTime()) /
-                                60000
-                            )
-                          : null;
-
-                      return (
-                        <tr
-                          key={session.sessionId}
-                          className="border-b border-card-border hover:bg-card-bg/50 transition-colors"
-                        >
-                          <td className="py-2.5 px-3">
-                            <div className="flex items-center gap-2">
-                              <Link
-                                href={`/conversations/${session.sessionId}?project=${encodeURIComponent(session.project)}`}
-                                className="text-xs font-mono hover:text-sidebar-active transition-colors"
-                              >
-                                {session.sessionId.slice(0, 12)}...
-                              </Link>
-                              <CopyableId
-                                value={session.sessionId}
-                                truncate={0}
-                                className="text-foreground/30"
-                              />
-                            </div>
-                          </td>
-                          <td className="py-2.5 px-3 text-sm">
-                            {session.messageCount}
-                          </td>
-                          <td className="py-2.5 px-3 text-xs font-mono text-foreground/50">
-                            {formatTokens(
-                              session.totalInputTokens +
-                                session.totalOutputTokens
-                            )}
-                          </td>
-                          <td className="py-2.5 px-3 text-xs text-foreground/50">
-                            {session.startTime
-                              ? new Date(session.startTime).toLocaleString()
-                              : "-"}
-                          </td>
-                          <td className="py-2.5 px-3 text-xs text-foreground/50">
-                            {duration !== null ? `${duration}m` : "-"}
-                          </td>
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
-              </div>
+              <SessionTable rows={projectSessions} />
             </div>
           ))}
         </div>
