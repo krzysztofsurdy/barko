@@ -14,6 +14,7 @@ import {
   LogsIcon,
   HistoryIcon,
 } from "./icons";
+import { ThemeToggle } from "./theme-toggle";
 import { type ComponentType, type SVGProps } from "react";
 
 type IconComponent = ComponentType<SVGProps<SVGSVGElement> & { size?: number }>;
@@ -60,8 +61,9 @@ export function Sidebar() {
           );
         })}
       </nav>
-      <div className="px-5 py-4 border-t border-white/10 text-xs text-white/30">
-        v0.1.0
+      <div className="px-5 py-4 border-t border-white/10 flex items-center justify-between">
+        <span className="text-xs text-white/30">v0.1.0</span>
+        <ThemeToggle />
       </div>
     </aside>
   );
